@@ -1,0 +1,111 @@
+﻿KaWia: jak postawić własny "domek" z nową siecią Tailscale
+==========================================================
+
+Co to daje: na Twoim komputerze działa serwer KaWii (kopie zdjęć i kontaktów z telefonów,
+okazje z OLX / Vinted / Allegro Lokalnie, kalendarz rodziny). Telefony domowników łączą się
+z nim przez Tailscale, czyli prywatną, szyfrowaną sieć, także spoza domu. Twój domek jest
+całkowicie oddzielny od innych: własny PIN, własna sieć Tailscale, własne dane.
+
+Potrzebne:
+- komputer z Windows 10 lub 11, który będzie zwykle włączony (to on przechowuje kopie),
+- telefony z Androidem 10 lub nowszym,
+- adres e-mail do założenia konta Tailscale (Google, Microsoft, GitHub albo Apple).
+
+Pliki (z https://github.com/wfirasiewicz-beep/KaWia-pobierz/releases/latest):
+- KaWia-serwer-instalator.zip - instalator serwera na komputer,
+- KaWia.apk                   - aplikacja na telefon.
+
+
+CZĘŚĆ 1. KONTO TAILSCALE (raz, na komputerze)
+----------------------------------------------
+1. Wejdź na https://login.tailscale.com i zaloguj się kontem, którym będzie zarządzać
+   domkiem (np. Google). Tak powstaje Twoja nowa sieć Tailscale (tzw. tailnet).
+   Tailscale dla prywatnego użytku jest darmowy.
+2. Jeśli Tailscale zapyta o urządzenie, możesz to pominąć: instalator z części 2
+   sam zainstaluje go na komputerze.
+
+
+CZĘŚĆ 2. SERWER NA KOMPUTERZE
+------------------------------
+1. Pobierz KaWia-serwer-instalator.zip i rozpakuj (prawy przycisk -> Wyodrębnij wszystkie).
+2. W rozpakowanym folderze KaWia-serwer uruchom Zainstaluj.bat.
+   Jeśli Windows pokaże "System Windows ochronił ten komputer": Więcej informacji -> Uruchom mimo to.
+   Potwierdź pytanie o uprawnienia administratora (Tak).
+3. Odpowiadaj na pytania. Enter = wartość domyślna w nawiasie (zwykle najlepsza):
+   - Folder na dane: C:\KaWia\dane (tu trafią kopie zdjęć; wybierz dysk z miejscem),
+   - Port serwera: 8780.
+4. Instalator zainstaluje Tailscale i otworzy stronę logowania. Zaloguj się TYM SAMYM kontem
+   co w części 1 i zatwierdź komputer (Connect). Instalator czeka, aż komputer się połączy.
+5. Pytanie o usypianie: odpowiedz T (tak). Komputer nie będzie wygaszał ekranu ani się usypiał,
+   więc telefony zawsze znajdą serwer. Zamknięcie klapy laptopa nadal go usypia.
+6. Zaproszenie Tailscale (ważne, oszczędza pracy z każdym telefonem):
+   a) w przeglądarce otwórz https://login.tailscale.com/admin/users,
+   b) kliknij "Invite users" i utwórz link zaproszenia (najlepiej wielokrotnego użytku),
+   c) skopiuj link (zaczyna się od https://login.tailscale.com/...) i wklej go w okno instalatora.
+   Możesz pominąć (Enter) i dodać go później przez Konfiguruj.bat (opcja 2).
+7. Na końcu instalator pokaże LINK ZAPROSZENIA DLA TELEFONÓW
+   (https://wfirasiewicz-beep.github.io/KaWia-pobierz/dolacz.html#...).
+   Jest też w schowku i w pliku C:\KaWia\dane\link_zaproszenia.txt.
+   Ten link zawiera PIN domku: wysyłaj go tylko domownikom (np. w prywatnej wiadomości).
+8. Serwer działa i będzie uruchamiał się sam po każdym zalogowaniu do Windows.
+   Sprawdzenie: w przeglądarce na komputerze otwórz http://localhost:8780 .
+
+
+CZĘŚĆ 3. TELEFON (każdy domownik)
+----------------------------------
+1. Otwórz na telefonie link zaproszenia z części 2 (punkt 7). Pokaże się strona z trzema krokami.
+2. "Pobierz KaWię": pobierze się KaWia.apk. Otwórz plik. Android zapyta o zgodę na instalację
+   z tego źródła: Ustawienia -> włącz "Zezwalaj z tego źródła" -> wróć -> Zainstaluj.
+   Jeśli pojawi się Play Protect: "Więcej szczegółów" -> "Zainstaluj mimo to".
+3. "Zainstaluj Tailscale": otworzy się Sklep Play. Zainstaluj Tailscale.
+4. Wróć do strony z linkiem i naciśnij "Połącz z domem". Otworzy się KaWia z wpisanym
+   adresem domku, PIN-em i zaproszeniem.
+5. W KaWii, krok "Dołącz do domu": naciśnij "Otwórz zaproszenie", zaloguj się w Tailscale
+   (albo załóż konto) i zaakceptuj zaproszenie.
+6. Otwórz aplikację Tailscale, włącz przełącznik i zgódź się na połączenie VPN
+   (na górze ekranu pojawi się ikona klucza).
+7. Wróć do KaWii, wpisz nazwę telefonu (np. "Telefon Kasi") i naciśnij "Zapisz i połącz".
+   Światło w prawym górnym rogu zaświeci na bursztynowo: "Jesteś połączony z domkiem".
+8. Zalecane (szczególnie Xiaomi / Redmi / POCO, Huawei, Samsung):
+   Ustawienia -> Aplikacje -> KaWia -> Oszczędzanie baterii -> "Bez ograniczeń" i włącz "Autostart".
+   To samo dla aplikacji Tailscale. Bez tego telefon może wstrzymywać powiadomienia
+   o okazjach i przypomnienia z kalendarza.
+
+Jeśli link "Połącz z domem" nie otwiera KaWii: skopiuj cały link zaproszenia i wklej go
+w KaWii w polu "Link zaproszenia", potem "Wczytaj link".
+
+
+CZĘŚĆ 4. PIERWSZE UŻYCIE
+-------------------------
+- "Wyślij kopię do domu": kopia kontaktów i zdjęć z telefonu na komputer (zgódź się na dostęp).
+- "Pobierz kopię z innego telefonu": kontakty i zdjęcia z kopii innego domownika.
+- "Okazje": wyszukiwania na OLX, Vinted i Allegro Lokalnie z powiadomieniami o nowych ofertach.
+- "Kalendarz rodziny": wspólne wydarzenia z przypomnieniami.
+- "Sprawdź aktualizacje" (na dole ekranu): instaluje nowe wersje aplikacji.
+
+
+ZARZĄDZANIE DOMKIEM PÓŹNIEJ (na komputerze)
+-------------------------------------------
+Uruchom C:\KaWia\serwer\Konfiguruj.bat:
+  1. pokaż link zaproszenia dla telefonów (np. dla nowego domownika),
+  2. nowe zaproszenie Tailscale,
+  3. nowy PIN rodziny (gdy link trafił do niepowołanej osoby; wszystkie telefony
+     trzeba wtedy połączyć ponownie nowym linkiem),
+  4. zmiana portu,
+  5. ponowne uruchomienie serwera,
+  6. dziennik serwera (przy problemach),
+  7. ponowne logowanie do Tailscale.
+
+
+GDY COŚ NIE DZIAŁA
+------------------
+- Telefon: "Brak połączenia z domkiem":
+  sprawdź, czy Tailscale na telefonie jest włączony (ikona klucza) i zalogowany tym kontem,
+  które przyjęło zaproszenie; sprawdź, czy komputer jest włączony, nie śpi i ma internet.
+- Komputer: czy serwer działa? Konfiguruj.bat -> opcja 5, potem opcja 6 (dziennik).
+- "Zły PIN rodziny": otwórz ponownie aktualny link zaproszenia (Konfiguruj.bat -> opcja 1).
+- Tailscale na komputerze wylogowany (np. po długim czasie): Konfiguruj.bat -> opcja 7.
+- Brak powiadomień na telefonie: zgoda na powiadomienia dla KaWii oraz "Bez ograniczeń"
+  baterii i Autostart (część 3, punkt 8).
+- Inny komputer ma już KaWię: każdy domek ma własny PIN i własną sieć Tailscale,
+  więc domki nie widzą się nawzajem.
